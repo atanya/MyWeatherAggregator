@@ -1,0 +1,30 @@
+﻿.hidden {
+    display: none !important;
+}
+
+.tabs-content .content {
+    padding: 10px;
+}
+
+img.cloudness {
+    height: 60px;
+    width: 60px;
+}
+
+.snippet {
+    font-size: 11px;
+    font-style: italic;
+    margin: -10px 0 10px 0;
+}
+
+.maxDays {
+    font-size: 11px;
+}
+
+label { /*Foundation's margin is too big.*/
+    margin-right: 0 !important;
+}
+
+.gmnoprint img {
+    max-width: none
+}

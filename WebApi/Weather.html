@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="weatherApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Погодный агрегатор</title>
+    <link rel="stylesheet" href="ThirdParty/Foundation/css/foundation.css" type="text/css"/>
+    <link rel="stylesheet" href="Styles/weather.css" type="text/css"/>
+    <script src="ThirdParty/angular.js"></script>
+    <script src="ThirdParty/jquery-1.11.1.min.js"></script>
+    <script src="ThirdParty/Foundation/js/foundation.min.js"></script>
+    <script src="ThirdParty/Foundation/js/foundation/foundation.tab.js"></script>
+    <script src="ThirdParty/waiter-min.js"> </script>
+    <script src="Scripts/weather.proxy.js"></script>
+    <script src="Scripts/weather.utils.js"></script>
+    <script src="Scripts/weather.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWHdAr9LSWRs6l1EfLBxOEm1hWU-3rS_8"></script>
+    <script src="Scripts/map.js"> </script>
+
+  </head>
+<body ng-controller="WeatherController">
+    <div class="row">
+        <div class="large-12 columns">
+            <h1>Погода для тебя бесплатно без смс без регистрации</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-4 columns">
+            <div class="callout panel" id="sourcesDiv">
+                <div ng-repeat="source in sources">
+                    <input type="checkbox" id="site{{source.Id}}" data-sourceId="{{source.Id}}" />
+                    <label for="site{{source.Id}}">{{source.Name}}</label>
+                    <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Макс. {{source.ForecastMaxDays}} дней)</span>
+                    <div class="snippet" ng-bind-html="source.Snippet"></div>
+                </div>
+            </div>
+        </div>
+        <div class="large-8 columns">
+            <div class="callout panel" >
+                <div id="map-canvas" style="width:600px;height: 300px; margin-bottom: 10px"></div>
+                <button class="medium success button" ng-click="getWeather()">Посмотреть прогноз</button>
+                <div class="hidden" id="tabsDiv">
+                    <ul class="tabs">
+                        <li class="tab-title {{weather.active}}" ng-repeat="weather in weatherModels"><a href="#panel2-{{weather.index}}" id="tabDay{{weather.index}}">{{weather.day}}</a></li>
+                    </ul>
+                    <div class="tabs-content">
+                        <div class="content {{weather.active}}" id="contenttabDay{{weather.index}}" ng-repeat="weather in weatherModels">
+                            <p>Температура: {{weather.Temperature}}</p> 
+                            <p>Облачность: <img class="cloudness" ng-src="Images/{{weather.cloudInfo.icon}}" title="{{weather.cloudInfo.title}} - {{weather.cloudInfo.percentage}}%" /></p> 
+                            <p>Осадки: {{weather.Precipitation}}</p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>Судя по точности прогнозов, в ГидроМетЦентре, "мет" может означать "метамфетамин"</p>
+    </div>
+</body>
+</html>

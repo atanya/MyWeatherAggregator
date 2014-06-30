@@ -2,7 +2,7 @@
 
 weatherAggregator.proxy = function () {
 
-    var sendAjaxRequest = function(type, url, data, onSuccess) {
+    var sendAjaxRequest = function(type, url, data, onSuccess, onComplete) {
 
         var jsonRequest = JSON.stringify(data);
 
@@ -13,6 +13,7 @@ weatherAggregator.proxy = function () {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: onSuccess,
+            complete: onComplete,
             error: function (xhr) {
                 alert(xhr.status);
             }
@@ -24,8 +25,8 @@ weatherAggregator.proxy = function () {
             sendAjaxRequest("GET", "/api/Weather/Sources", null, onSuccess);
         },
 
-        getWeather: function (data, onSuccess) {
-            sendAjaxRequest("POST", "/api/Weather/GetWeather", data, onSuccess);
+        getWeather: function (data, onSuccess, onComplete) {
+            sendAjaxRequest("POST", "/api/Weather/GetWeather", data, onSuccess, onComplete);
         }
     };
 }();

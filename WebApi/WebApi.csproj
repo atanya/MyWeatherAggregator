@@ -97,6 +97,45 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Cloud.png" />
+    <Content Include="Images\Sun.png" />
+    <Content Include="Images\SunCloud.png" />
+    <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\weather.js" />
+    <Content Include="Scripts\weather.proxy.js" />
+    <Content Include="Scripts\weather.utils.js" />
+    <Content Include="Styles\weather.css" />
+    <Content Include="ThirdParty\angular.js" />
+    <Content Include="ThirdParty\angular.min.js" />
+    <Content Include="ThirdParty\Foundation\css\foundation.css" />
+    <Content Include="ThirdParty\Foundation\css\foundation.min.css" />
+    <Content Include="ThirdParty\Foundation\css\normalize.css" />
+    <Content Include="ThirdParty\Foundation\js\foundation.min.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.abide.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.accordion.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.alert.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.clearing.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.dropdown.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.equalizer.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.interchange.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.joyride.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.magellan.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.offcanvas.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.orbit.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.reveal.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.slider.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.tab.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.tooltip.js" />
+    <Content Include="ThirdParty\Foundation\js\foundation\foundation.topbar.js" />
+    <Content Include="ThirdParty\Foundation\js\vendor\fastclick.js" />
+    <Content Include="ThirdParty\Foundation\js\vendor\jquery.cookie.js" />
+    <Content Include="ThirdParty\Foundation\js\vendor\jquery.js" />
+    <Content Include="ThirdParty\Foundation\js\vendor\modernizr.js" />
+    <Content Include="ThirdParty\Foundation\js\vendor\placeholder.js" />
+    <Content Include="ThirdParty\jquery-1.11.1.min.js" />
+    <Content Include="ThirdParty\waiter-min.js" />
+    <Content Include="Weather.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -126,6 +165,9 @@
       <Project>{2a16ae16-6048-4875-9f44-d885d8504b3b}</Project>
       <Name>Sources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ThirdParty\Foundation\img\.gitkeep" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2949,7 +2949,7 @@ blockquote p {
       font-size: 1rem; }
       .tabs dd > a:hover, .tabs .tab-title > a:hover {
         background: #e1e1e1; }
-    .tabs dd.active a, .tabs .tab-title.active a {
+    .tabs dd.active a, .tabs .tab-title.active a, .tabs-content .content{
       background: white;
       color: #222222; }
   .tabs.radius dd:first-child a, .tabs.radius .tab:first-child a {
