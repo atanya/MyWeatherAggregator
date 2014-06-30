@@ -22,16 +22,19 @@
 <body ng-controller="WeatherController">
     <div class="row">
         <div class="large-12 columns">
-            <h1>Погода для тебя бесплатно без смс без регистрации</h1>
+            <h1>Погодный агрегатор</h1>
+            <br/>
+            (Усредненная информация о погоде из выбранных источников)<br/><br/>
         </div>
     </div>
     <div class="row">
         <div class="large-4 columns">
             <div class="callout panel" id="sourcesDiv">
+                Пожалуйста, выберите источники данных о погоде: <br/><br/>
                 <div ng-repeat="source in sources">
                     <input type="checkbox" id="site{{source.Id}}" data-sourceId="{{source.Id}}" />
                     <label for="site{{source.Id}}">{{source.Name}}</label>
-                    <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Макс. {{source.ForecastMaxDays}} дней)</span>
+                    <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Максимум {{source.ForecastMaxDays}} дней)</span><br/><br/>
                     <div class="snippet" ng-bind-html="source.Snippet"></div>
                 </div>
             </div>
