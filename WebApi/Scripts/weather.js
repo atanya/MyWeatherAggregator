@@ -12,7 +12,7 @@
                     $scope.sources = response;
                     $timeout(weatherAggregator.weatherPage.restoreSourceChecks);
                 });
-            });
+            }, weatherAggregator.weatherPage.onGetWeatherComplete);
 
             $scope.weatherModels = [{ index: 0 }, { index: 1}, { index: 2 }, { index: 3 }];
 
@@ -47,7 +47,8 @@
         localStorage.setItem('Sources', JSON.stringify(sources));
     },
 
-    init: function (){
+    init: function () {
+        weatherAggregator.utils.showWaiter();
         $("#tabsDiv").on('click', "a[id^='tabDay']", function () {
             $("[id^='contenttabDay']").removeClass('active');
             var location = "[id$='content" + $(this).attr('id') + "']";

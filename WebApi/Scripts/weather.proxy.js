@@ -21,8 +21,8 @@ weatherAggregator.proxy = function () {
     };
 
     return {
-        getSources: function (onSuccess) {
-            sendAjaxRequest("GET", "/api/Weather/Sources", null, onSuccess);
+        getSources: function (onSuccess, onComplete) {
+            sendAjaxRequest("GET", "/api/Weather/Sources", null, onSuccess, onComplete);
         },
 
         getWeather: function (data, onSuccess, onComplete) {
