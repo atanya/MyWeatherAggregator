@@ -170,11 +170,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Secret.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ThirdParty\Foundation\img\.gitkeep" />
   </ItemGroup>
   <PropertyGroup>
