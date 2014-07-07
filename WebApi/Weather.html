@@ -7,6 +7,7 @@
     <title>Погодный агрегатор</title>
     <link rel="stylesheet" href="ThirdParty/Foundation/css/foundation.css" type="text/css"/>
     <link rel="stylesheet" href="Styles/weather.css" type="text/css"/>
+    <link rel="stylesheet" href="Styles/montanaflynn.css" type="text/css"/>
     <script src="ThirdParty/angular.js"></script>
 
     <script src="ThirdParty/Foundation/js/vendor/jquery.js"></script>
@@ -23,67 +24,74 @@
     <script src="Scripts/ymap.js"> </script>
 
   </head>
-<body ng-controller="WeatherController">
-    <div class="row">
-        <div class="large-12 columns">
-            <h1>Погодный агрегатор</h1>
-            <br/>
-            (Усредненная информация о погоде из выбранных источников)<br/><br/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-4 columns">
-            <div class="callout panel" id="sourcesDiv">
-                Пожалуйста, выберите источники данных о погоде: <br/><br/>
-                <div ng-repeat="source in sources">
-                    <input type="checkbox" id="site{{source.Id}}" data-sourceId="{{source.Id}}" />
-                    <label for="site{{source.Id}}">{{source.Name}}</label>
-                    <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Максимум {{source.ForecastMaxDays}} дней)</span><br/><br/>
-                    <div class="snippet" ng-bind-html="source.Snippet"></div>
+    <body ng-controller="WeatherController">
+            <div class="row">
+                <div class="large-12 columns">
+                    <h1>Погодный агрегатор</h1>
+                    <br/>
+                    (Усредненная информация о погоде из выбранных источников)<br/><br/>
                 </div>
             </div>
-        </div>
-        <div class="large-8 columns">
-            <div class="callout panel" >
-                <div id="map-canvas" style="width:600px;height: 300px; margin-bottom: 10px"></div>
-                <button class="medium success button" ng-click="getWeather()">Посмотреть прогноз</button>
-                <div class="hidden" id="tabsDiv">
-                    <ul class="tabs">
-                        <li class="tab-title {{weather.active}}" ng-repeat="weather in weatherModels"><a href="#panel2-{{weather.index}}" id="tabDay{{weather.index}}">{{weather.day}}</a></li>
-                    </ul>
-                    <div class="tabs-content">
-                        <br/>
-                        <div class="content {{weather.active}}" id="contenttabDay{{weather.index}}" ng-repeat="weather in weatherModels">
-                            <p>Температура: {{weather.Temperature}} &deg;C</p> 
-                            <p>Облачность: <img class="cloudness" ng-src="Images/{{weather.cloudInfo.icon}}" title="{{weather.cloudInfo.title}} - {{weather.cloudInfo.percentage}}%" /></p> 
-                            <p>Осадки: {{weather.Precipitation}}</p> 
+            <div class="row">
+                <div class="large-4 columns">
+                    <div class="callout panel" id="sourcesDiv">
+                        Пожалуйста, выберите источники данных о погоде: <br/><br/>
+                        <div ng-repeat="source in sources">
+                            <input type="checkbox" id="site{{source.Id}}" data-sourceId="{{source.Id}}" />
+                            <label for="site{{source.Id}}">{{source.Name}}</label>
+                            <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Максимум {{source.ForecastMaxDays}} дней)</span><br/><br/>
+                            <div class="snippet" ng-bind-html="source.Snippet"></div>
                         </div>
                     </div>
                 </div>
+                <div class="large-8 columns">
+                    <div class="callout panel" >
+                        <div id="map-canvas" style="width:600px;height: 300px; margin-bottom: 10px"></div>
+                        <button class="medium success button" ng-click="getWeather()">Посмотреть прогноз</button>
+                        <div class="hidden" id="tabsDiv">
+                            <ul class="tabs">
+                                <li class="tab-title {{weather.active}}" ng-repeat="weather in weatherModels"><a href="#panel2-{{weather.index}}" id="tabDay{{weather.index}}">{{weather.day}}</a></li>
+                            </ul>
+                            <div class="tabs-content">
+                                <br/>
+                                <div class="content {{weather.active}}" id="contenttabDay{{weather.index}}" ng-repeat="weather in weatherModels">
+                                    <p>Температура: {{weather.Temperature}} &deg;C</p> 
+                                    <p>Облачность: <img class="cloudness" ng-src="Images/{{weather.cloudInfo.icon}}" title="{{weather.cloudInfo.title}} - {{weather.cloudInfo.percentage}}%" /></p> 
+                                    <p>Осадки: {{weather.Precipitation}}</p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>Судя по точности прогнозов, в ГидроМетЦентре "мет" может означать "метамфетамин" :) <br/>
+                    <a href="Javascript:void(0)" data-reveal-id="feedbackModal">Я хочу быть услышан(а)!</a>
+                </p>
             </div>
+            <div id="feedbackModal" class="reveal-modal tiny" data-reveal>
+                <form>
+                    <div>
+                        <input ng-model="feedback.email" type="text" placeholder="E-mail (если хотите получить ответ)" />
+                    </div>
+                    <div>
+                        <input ng-model="feedback.name" type="text" placeholder="Имя (не обязательно)" />
+                    </div>
+                    <div>
+                        <textarea ng-model="feedback.text" placeholder="Что у вас на уме"></textarea>
+                    </div>
+                    <div>
+                        <a href="Javascript:void(0)" class="close-reveal-modal right static" ng-click="feedback.send()">
+                            <span class="button">Отправить</span>
+                        </a>
+                    </div>
+                </form>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+        <div class="sky">
+            <div class="clouds_one"></div>
+
+        <div class="clouds_two"></div>
+
+        <div class="clouds_three"></div>
         </div>
-        <p>Судя по точности прогнозов, в ГидроМетЦентре, "мет" может означать "метамфетамин" :)
-            <a href="Javascript:void(0)" data-reveal-id="feedbackModal">Я хочу быть услышан(а)!</a>
-        </p>
-    </div>
-    <div id="feedbackModal" class="reveal-modal tiny" data-reveal>
-        <form>
-            <div>
-                <input ng-model="feedback.email" type="text" placeholder="E-mail (если хотите получить ответ)" />
-            </div>
-            <div>
-                <input ng-model="feedback.name" type="text" placeholder="Имя (не обязательно)" />
-            </div>
-            <div>
-                <textarea ng-model="feedback.text" placeholder="Что у вас на уме"></textarea>
-            </div>
-            <div>
-                <a href="Javascript:void(0)" class="close-reveal-modal right static" ng-click="feedback.send()">
-                    <span class="button">Отправить</span>
-                </a>
-            </div>
-        </form>
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
-</body>
+    </body>
 </html>
