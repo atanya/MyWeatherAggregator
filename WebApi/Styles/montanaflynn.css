@@ -13,6 +13,9 @@
 		    width: 100%;
 			overflow:hidden;
             background:-moz-linear-gradient(center top , #4682b4 0%, #fff 100%);
+            background:-webkit-linear-gradient(center top , #4682b4 0%, #fff 100%);
+            background:-o-linear-gradient(center top , #4682b4 0%, #fff 100%);
+            background:linear-gradient(to bottom, #4682b4 0%, #fff 100%);
 			/*-webkit-animation:sky_background 50s ease-out infinite;
 			-moz-animation:sky_background 50s ease-out infinite;
 			-o-animation:sky_background 50s ease-out infinite;*/
