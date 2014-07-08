@@ -8,6 +8,7 @@ namespace WeatherAggregator.Core.Entities
     {
         public Func<ICacheRepository> CacheRepositoryFactory;
         public Func<IFeedbackRepository> FeedbackRepositoryFactory;
+        public Func<ISubscriptionRepository> SubscriptionRepositoryFactory;
         public List<ISource> Sources;
     }
 }

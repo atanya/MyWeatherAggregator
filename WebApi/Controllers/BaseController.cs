@@ -22,7 +22,8 @@ namespace WeatherAggregator.WebApi.Controllers
             {
                 CacheRepositoryFactory = () => DataAccess.InMemory.CacheRepository.Instance,
                 Sources = LoadSources(),
-                FeedbackRepositoryFactory = CreateFeedbackRepository
+                FeedbackRepositoryFactory = CreateFeedbackRepository,
+                SubscriptionRepositoryFactory = CreateSubscriptionRepository
             };
 
             return new CoreFacade(settings);
@@ -33,6 +34,13 @@ namespace WeatherAggregator.WebApi.Controllers
             var connectionString = ConfigurationManager.AppSettings["MONGOLAB_URI"];
             var context = new MongoContext(connectionString);
             return new FeedbackRepository(context);
+        }
+
+        private static ISubscriptionRepository CreateSubscriptionRepository()
+        {
+            var connectionString = ConfigurationManager.AppSettings["MONGOLAB_URI"];
+            var context = new MongoContext(connectionString);
+            return new SubscriptionRepository(context);
         }
 
         private static List<ISource> LoadSources()

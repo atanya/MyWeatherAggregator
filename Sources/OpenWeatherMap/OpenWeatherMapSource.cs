@@ -61,7 +61,7 @@ namespace WeatherAggregator.Sources.OpenWeatherMap
             foreach (var item in json.list)
             {
                 var date = DateTimeHelpers.FromTimeStamp(item.dt);
-                if (dateRange.Contains(date))
+                if (dateRange.Contains(date.Date))
                 {
                     var weather = new Weather
                     {

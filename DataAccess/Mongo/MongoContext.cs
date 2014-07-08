@@ -7,6 +7,10 @@ namespace WeatherAggregator.DataAccess.Mongo
 {
     public class MongoContext
     {
+        public MongoCollection<Feedback> Feddback { get; private set; }
+
+        public MongoCollection<SubscriptionInfo> Subscription { get; private set; }
+
         static MongoContext()
         {
             BsonClassMap.RegisterClassMap<Feedback>(cm =>
@@ -14,9 +18,12 @@ namespace WeatherAggregator.DataAccess.Mongo
                 cm.AutoMap();
                 cm.SetIdMember(cm.GetMemberMap(f => f.DateCreated));
             });
+            BsonClassMap.RegisterClassMap<SubscriptionInfo>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIdMember(cm.GetMemberMap(f => f.CreatedDate));
+            });
         }
-
-        public MongoCollection<Feedback> Feddback { get; private set; }
 
         public MongoContext(string connectionString)
         {
@@ -26,6 +33,7 @@ namespace WeatherAggregator.DataAccess.Mongo
             var database = server.GetDatabase(url.DatabaseName);
 
             Feddback = database.GetCollection<Feedback>("Feedback");
+            Subscription = database.GetCollection<SubscriptionInfo>("Subscription");
         }
     }
 }

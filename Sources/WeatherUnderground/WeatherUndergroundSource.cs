@@ -59,7 +59,8 @@ namespace WeatherAggregator.Sources.WeatherUnderground
                     resultItem.Cloudness = DataExtractor.GetCloudness(model.Forecast.SimpleForecast.ForecastDay[i]);
                     resultItem.Precipitation =
                         DataExtractor.GetPrecipitation(model.Forecast.SimpleForecast.ForecastDay[i]);
-
+                    var forecastDayDate = model.Forecast.SimpleForecast.ForecastDay[i].Date;
+                    resultItem.Date = new DateTime(forecastDayDate.Year, forecastDayDate.Month, forecastDayDate.Day);
                     result.Add(resultItem);
                 }
             }

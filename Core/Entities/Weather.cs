@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WeatherAggregator.Core.Aspects;
 
 namespace WeatherAggregator.Core.Entities
@@ -10,5 +11,7 @@ namespace WeatherAggregator.Core.Entities
         public double Temperature { get; set; }
         public int Cloudness { get; set; }
         public Precipitation Precipitation { get; set; }
+
+        public List<SourcedWeather> Sources;
     }
 }

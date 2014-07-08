@@ -1,7 +1,7 @@
 ﻿weatherAggregator.weatherPage = {
-    requestData: {Location: {} },
+    requestData: { Location: {} },
     initWeatherApp: function() {
-        var weatherApp = angular.module('weatherApp', []).config(function ($sceProvider) {
+        var weatherApp = angular.module('weatherApp', []).config(function($sceProvider) {
             $sceProvider.enabled(false); //Yes, I've disabled it. And I'm happy with it.
         });
 
@@ -13,13 +13,19 @@
                 });
             }, weatherAggregator.weatherPage.onGetWeatherComplete);
 
-            $scope.weatherModels = [{ index: 0 }, { index: 1}, { index: 2 }, { index: 3 }];
+            $scope.weatherModels = [{ index: 0 }, { index: 1 }, { index: 2 }, { index: 3 }];
+            $scope.detailsVisible = false;
+            $scope.detailsText = function() {
+                return $scope.detailsVisible ? "Скрыть" : "Подробнее";
+            };
 
             $scope.getWeather = weatherAggregator.weatherPage.getWeather;
+            $scope.toggleDetails = weatherAggregator.weatherPage.toggleDetails;
             $scope.feedback = weatherAggregator.weatherPage.feedback;
+            $scope.subscription = weatherAggregator.weatherPage.subscription;
         });
-        
-        $(window).on('beforeunload', function () {
+
+        $(window).on('beforeunload', function() {
             weatherAggregator.weatherPage.saveSourceChecks();
         });
     },
@@ -28,11 +34,23 @@
         email: null,
         name: null,
         text: null,
-        send: function () {
+        send: function() {
             weatherAggregator.proxy.sendFeedback({
                 Email: this.email,
                 Name: this.name,
                 Text: this.text
+            });
+        }
+    },
+
+    subscription: {
+        email: null,
+        subscribe: function () {
+            weatherAggregator.proxy.subscribe({
+                Email: this.email,
+                Latitude: weatherAggregator.weatherPage.requestData.Location.Latitude,
+                Longitude: weatherAggregator.weatherPage.requestData.Location.Longitude,
+                AddressText: weatherAggregator.weatherPage.requestData.Location.AddressText,
             });
         }
     },
@@ -72,6 +90,12 @@
         });
     },
 
+    toggleDetails: function () {
+        var $scope = angular.element($("body")).scope();
+        $scope.detailsVisible = !$scope.detailsVisible;
+        event.preventDefault();
+    },
+
     getWeather: function () {
         var selectedSources = $("#sourcesDiv input:checked").map(function () {
             return $(this).data("sourceid");
@@ -87,15 +111,19 @@
                 Sources: selectedSources,
                 Location: {
                     Latitude: weatherAggregator.weatherPage.requestData.Location.Latitude,
-                    Longitude: weatherAggregator.weatherPage.requestData.Location.Longitude
+                    Longitude: weatherAggregator.weatherPage.requestData.Location.Longitude,
+                    AddressText: weatherAggregator.weatherPage.requestData.Location.AddressText,
+                    Country: weatherAggregator.weatherPage.requestData.Location.Country,
+                    Region: weatherAggregator.weatherPage.requestData.Location.Region,
+                    City: weatherAggregator.weatherPage.requestData.Location.City
                 },
-                DateRange: {
+                DateRange: {    
                     From: new Date(),
                     To: new Date()
                 }
             };
 
-            data.DateRange.To.setDate(data.DateRange.To.getDate() + 2);
+            data.DateRange.To.setDate(data.DateRange.To.getDate() + 3);
             weatherAggregator.proxy.getWeather(data, weatherAggregator.weatherPage.bindWeather, weatherAggregator.weatherPage.onGetWeatherComplete);
         }
     },
@@ -108,6 +136,11 @@
                 element.Precipitation = weatherAggregator.utils.getPrecipitation(element.Precipitation);
                 element.cloudInfo = weatherAggregator.utils.getCloudInfo(element.Cloudness);
                 element.day = weatherAggregator.utils.getDay(index);
+                $(element.Sources).each(function (ind, elm) {
+                    elm.Precipitation = weatherAggregator.utils.getPrecipitation(elm.Precipitation);
+                    elm.cloudInfo = weatherAggregator.utils.getCloudInfo(elm.Cloudness);
+                });
+                element.sourcedWeatherModels = element.Sources;
             });
             var $scope = angular.element($("body")).scope();
             $scope.$apply(function () { $scope.weatherModels = data; });

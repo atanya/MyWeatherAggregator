@@ -58,6 +58,7 @@
     <Compile Include="InMemory\CacheRepository.cs" />
     <Compile Include="Mongo\FeedbackRepository.cs" />
     <Compile Include="Mongo\MongoContext.cs" />
+    <Compile Include="Mongo\SubscriptionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

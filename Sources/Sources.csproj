@@ -78,6 +78,13 @@
     <Compile Include="WeatherUa\WeatheruaCity.cs" />
     <Compile Include="WeatherUa\WeatheruaSource.cs" />
     <Compile Include="WeatherUa\WeatheruaLoader.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Data.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Error.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Error2.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Meta.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Response.cs" />
+    <Compile Include="WorldWeatherOnline\Api\Weather.cs" />
+    <Compile Include="WorldWeatherOnline\WorldWeatherOnlineSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -91,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WorldWeatherOnline\WeatherCodes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.3.1.44\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.3.1.44\tools\PostSharp.targets')" />

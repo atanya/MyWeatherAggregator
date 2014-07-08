@@ -10,7 +10,7 @@ namespace WeatherAggregator.Sources
     public class ForecastioSource:ISource
     {
         public Guid Id { get { return new Guid("2D498C9F-8294-4A47-97E4-6CF1B1800F3E"); } }
-        public string Name { get { return "Forecast.io source";  } }
+        public string Name { get { return "Forecast.io";  } }
         public string Snippet { get { return "<a href='http://forecast.io/'>Powered by Forecast</a>"; } }
         public int ForecastMaxDays { get { return 0; } }
 
