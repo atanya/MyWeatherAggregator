@@ -39,7 +39,7 @@
                         <div ng-repeat="source in sources">
                             <input type="checkbox" id="site{{source.Id}}" data-sourceId="{{source.Id}}" />
                             <label for="site{{source.Id}}">{{source.Name}}</label>
-                            <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Максимум {{source.ForecastMaxDays}} дней)</span><br/><br/>
+                            <span ng-if="source.ForecastMaxDays > 0" class="maxDays">(Максимум {{source.ForecastMaxDays|days}})</span><br/><br/>
                             <div class="snippet" ng-bind-html="source.Snippet"></div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
         <div class="sky">
             <div class="clouds_one"></div>
 
-        <div class="clouds_two"></div>
+        <!--<div class="clouds_two"></div>-->
 
         <div class="clouds_three"></div>
         </div>
