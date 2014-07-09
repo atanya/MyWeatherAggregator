@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using PostSharp.Aspects;
@@ -13,6 +14,8 @@ namespace WeatherAggregator.Core.Aspects
     {
         internal static Func<ICacheRepository> CacheRepositoryFactory;
 
+        private string _cacheKey;
+
         protected abstract int Timeout { get; }
 
         protected MethodCacheAttribute(Type target = null)
@@ -21,26 +24,30 @@ namespace WeatherAggregator.Core.Aspects
         public override void OnEntry(MethodExecutionArgs args)
         {
             var cache = CacheRepositoryFactory();
-            var key = BuildCacheKey(args.Method, args.Arguments);
-            var cacheEntry = cache[key] as CacheEntry;
-            object result;
+            _cacheKey = BuildCacheKey(args.Method, args.Arguments);
+            var cacheEntry = cache[_cacheKey] as CacheEntry;
             if (cacheEntry == null || (DateTime.Now - cacheEntry.DateCreated).TotalSeconds > Timeout)
             {
-                Logger.Info("Key missed in cache: {0}", key);
-                base.OnEntry(args);
-                result = args.ReturnValue;
-                cache[key] = new CacheEntry
-                {
-                    Value = args.ReturnValue,
-                    DateCreated = DateTime.Now
-                };
+                Logger.Info("Key missed in cache: {0}", _cacheKey);
             }
             else
             {
-                Logger.Info("Key found in cache: {0}", key);
-                result = cacheEntry.Value;
+                args.FlowBehavior = FlowBehavior.Return;
+
+                Logger.Info("Key found in cache: {0}", _cacheKey);
+                args.ReturnValue = cacheEntry.Value;
             }
-            args.ReturnValue = result;
+        }
+
+        public override void OnSuccess(MethodExecutionArgs args)
+        {
+            var cache = CacheRepositoryFactory();
+
+            cache[_cacheKey] = new CacheEntry
+            {
+                Value = args.ReturnValue,
+                DateCreated = DateTime.Now
+            };
         }
 
         private string BuildCacheKey(MethodBase method, Arguments arguments)
